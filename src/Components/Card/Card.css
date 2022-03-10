@@ -1,0 +1,31 @@
+.Card {
+    display: flex;
+    text-align: center;
+    height: 250px;
+    width: 250px;
+    min-width: 250px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background: #5cb463;
+    box-shadow: -0.5rem 0.5rem 0.5rem rgb(186, 255, 198);
+    flex-direction: column;
+    transition: .2s;
+    margin: 0.1rem;
+    text-align: center;
+    clear: both;
+    position: relative;
+    color: rgb(255, 255, 255);
+}
+.Card:focus-within~.Card, .Card:hover~.Card {
+  transform: translateX(1px);
+}
+
+.Card:hover {
+  transform: translateY(-10px);
+}
+
+
+img {
+  width: 128px;
+  height: 128px;
+}
