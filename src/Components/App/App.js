@@ -1,34 +1,41 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { robots } from "../../Data/robots";
 import CardList from "../CardList/CardList";
 import Search from "../Search/Search";
 import "./App.css";
 
+// Note: useCallback is completely optional here, but we are creating three functions that are defined on every re-render
+// Also, I would change the names of the variables, as they are a little bit generic and sometimes confusing
 const App = () => {
   const [dataSource, setDataSource] = useState(() => robots);
   const [searchValue, setSearchValue] = useState("");
 
-  const filterRobots = (searchValue) => {
+  const filterRobots = useCallback((searchValue) => {
     setDataSource(
-      robots.filter((x) => {
-        return x.name.toLowerCase().includes(searchValue.toLowerCase());
+      robots.filter((robot) => {
+        return robot.name.toLowerCase().includes(searchValue.toLowerCase());
       })
     );
-  };
-  const onSearchChanged = (event) => {
-    filterRobots(event.target.value);
-    setSearchValue(event.target.value);
-  };
+  }, []);
 
-  const onCardClick = (cardName) => {
-    console.log(cardName);
-    setSearchValue(cardName);
-    filterRobots(cardName);
-  };
+  const onCardClick = useCallback(
+    (cardName) => {
+      setSearchValue(cardName);
+      filterRobots(cardName);
+    },
+    [filterRobots]
+  );
+
+  const onSearchChanged = useCallback(
+    (event) => {
+      onCardClick(event.target.value);
+    },
+    [onCardClick]
+  );
 
   return (
     <div className="container">
-      <h1>My first app in React</h1>
+      <h1>Robots something</h1>
       <Search searchChanged={onSearchChanged} value={searchValue} />
       <CardList dataSource={dataSource} cardClick={onCardClick} />
     </div>
