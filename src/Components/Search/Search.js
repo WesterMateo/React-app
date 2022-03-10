@@ -1,13 +1,18 @@
 import React from "react";
-import './Search.css'
+import "./Search.css";
 
 const Search = (props) => {
-    console.log(props.value)
-    return (
-        <div className="Search">
-            <input type="search" placeholder="Search" onChange={props.searchChanged} value={props.value} />
-        </div>
-    );
-}
+  const { searchChanged = () => {}, value = "" } = props;
+  return (
+    <div className="Search">
+      <input
+        type="search"
+        placeholder="Search"
+        onChange={searchChanged}
+        value={value}
+      />
+    </div>
+  );
+};
 
-export default Search
+export default Search;
